@@ -1,0 +1,195 @@
+@import "../../mixins";
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-sizing: content-box;
+  min-height: 110px;
+  background: transparent;
+  .pageTitle {
+    text-align: center;
+    margin-bottom: 2px;
+
+    &__apple {
+      @include font-serif('-apple-system', 17px, false, normal, 22px, 600);
+    }
+
+    &__material {
+      @include font-serif('Roboto', 17px, false, normal, 22px, 600);
+    }
+  }
+  .pageDescription {
+    text-align: center;
+    width: 260px;
+    margin: auto;
+
+    &__apple {
+      @include font-serif(
+                      '-apple-system',
+                      13px,
+                      var(--tg-theme-hint-color),
+                      normal,
+                      16px,
+                      400
+      );
+    }
+
+    &__material {
+      @include font-serif(
+                      'Roboto',
+                      13px,
+                      var(--tg-theme-hint-color),
+                      normal,
+                      16px,
+                      400
+      );
+    }
+  }
+  .logotype{
+    & img{
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+    }
+  }
+  /* stylelint-disable */
+  &.flex-start {
+    align-items: flex-start;
+  }
+  /* stylelint-enable */
+
+  &__apple {
+    padding: 38px 24px 40px 20px;
+  }
+
+  &__material {
+    padding: 42px 24px 36px 20px;
+  }
+}
+
+.title {
+  /* ! */
+
+  &__apple {
+    margin-bottom: 2px;
+    @include font-serif('-apple-system', 17px, false, normal, 22px, 400);
+  }
+
+  &__material {
+    margin-bottom: 1px;
+    @include font-serif('Roboto', 15px, false, normal, 18px, 400);
+  }
+}
+
+.contentWrapper {
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* stylelint-disable */
+  &.flex-start {
+    justify-content: flex-start;
+  }
+  /* stylelint-enable */
+
+  &__apple {
+    @include font-serif('ui-rounded', 56px, false, normal, 64px, 700);
+  }
+
+  &__material {
+    @include font-serif('Roboto', 44px, false, normal, 56px, 700);
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+
+  &__apple {
+    width: 40px;
+    height: 40px;
+    margin-inline-end: 6px;
+  }
+
+  &__material {
+    width: 32px;
+    height: 32px;
+    margin-inline-end: 4px;
+  }
+}
+
+.iconSkeleton {
+  @include skeleton;
+
+  border-radius: 50%;
+
+  // Lottie minimize icon by 9%
+  transform: scale(0.91);
+}
+
+.value {
+  /* ! */
+  display: flex;
+  align-items: baseline;
+
+  &__apple {
+    @include font-serif('ui-rounded', 56px, false, normal, 64px, 700);
+
+    gap: 6px;
+  }
+
+  &__material {
+    @include font-serif('Roboto', 44px, false, normal, 56px, 700);
+
+    gap: 4px;
+  }
+}
+
+@include rtl {
+  .value {
+    flex-direction: row-reverse;
+  }
+}
+
+.fraction {
+  /* ! */
+
+  &__apple {
+    @include font-serif('ui-rounded', 0.79em, false, normal, 0.79em, 700);
+  }
+
+  &__material {
+    @include font-serif('Roboto', 0.79em, false, normal, 0.79em, 700);
+  }
+}
+
+.currency {
+  color: var(--tg-theme-hint-color);
+
+  &__apple {
+    @include font-serif('ui-rounded', 0.79em, false, normal, 0.79em, 700);
+  }
+
+  &__material {
+    @include font-serif('Roboto', 0.79em, false, normal, 0.79em, 700);
+  }
+}
+
+.bottom {
+  color: var(--tg-theme-hint-color);
+
+  &__apple {
+    margin-top: 2px;
+    @include font-serif('-apple-system', 17px, false, normal, 20px, 400);
+  }
+
+  &__material {
+    margin-top: 1px;
+    @include font-serif('Roboto', 15px, false, normal, 18px, 400);
+  }
+}

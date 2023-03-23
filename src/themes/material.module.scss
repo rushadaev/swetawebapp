@@ -1,0 +1,35 @@
+:global(.material) {
+  --toast-background: rgb(47 55 63 / 92%);
+  --text-overlay: #fff;
+  --fake-main-button-height: 48px;
+  margin: 0;
+  padding: 0;
+
+  &[data-color-scheme='light'] {
+    --separator-color: #d9d9d9;
+    --highlight-default: rgb(0 0 0 / 5%);
+    --text-destrutive-color: #f56058;
+    --text-destrutive-color-secondary: rgb(245 96 88 / 10%);
+    --dropdown-menu-background: rgb(255 255 255 / 100%);
+    --main-button-disabled-color: #e9e8e8;
+    --main-button-disabled-text-color: #bababa;
+    --tertiary-fill-background: rgb(123 123 123 / 12%);
+    --quaternary-fill-background: rgb(116 116 128 / 8%);
+    --segmented-control-active-background: #fff;
+    --orange-accent: #ff9f0a;
+  }
+
+  &[data-color-scheme='dark'] {
+    --separator-color: #000;
+    --highlight-default: rgb(255 255 255 / 5%);
+    --text-destrutive-color: #f16d66;
+    --text-destrutive-color-secondary: rgb(241 109 102 / 10%);
+    --dropdown-menu-background: rgb(40 40 41 / 100%);
+    --main-button-disabled-color: #3c3c3e;
+    --main-button-disabled-text-color: #78787c;
+    --tertiary-fill-background: rgb(123 123 123 / 24%);
+    --quaternary-fill-background: rgb(122 122 122 / 18%);
+    --segmented-control-active-background: #636366;
+    --orange-accent: #ff9500;
+  }
+}

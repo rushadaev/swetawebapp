@@ -1,0 +1,33 @@
+:global(.apple) {
+  --toast-background: rgb(45 45 45 / 80%);
+  --text-overlay: #fff;
+  --fake-main-button-height: 66px;
+
+  &[data-color-scheme='light'] {
+    --separator-color: #c8c7cb;
+    --highlight-default: rgb(142 142 146 / 24%);
+    --text-destrutive-color: #ff3b30;
+    --text-destrutive-color-secondary: rgb(255 59 48 / 10%);
+    --dropdown-menu-background: rgb(255 255 255 / 55%);
+    --main-button-disabled-color: #e8e8e9;
+    --main-button-disabled-text-color: #b9b9ba;
+    --tertiary-fill-background: rgb(118 118 128 / 12%);
+    --quaternary-fill-background: rgb(116 116 128 / 8%);
+    --segmented-control-active-background: #fff;
+    --orange-accent: #ff9f0a;
+  }
+
+  &[data-color-scheme='dark'] {
+    --separator-color: #3d3d3f;
+    --highlight-default: rgb(152 152 157 / 24%);
+    --text-destrutive-color: #ff4530;
+    --text-destrutive-color-secondary: rgb(255 69 48 / 10%);
+    --dropdown-menu-background: rgb(0 0 0 / 78%);
+    --main-button-disabled-color: #2f2f2f;
+    --main-button-disabled-text-color: #606060;
+    --tertiary-fill-background: rgb(118 118 128 / 24%);
+    --quaternary-fill-background: rgb(116 116 128 / 18%);
+    --segmented-control-active-background: #636366;
+    --orange-accent: #ff9500;
+  }
+}

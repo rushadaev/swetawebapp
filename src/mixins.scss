@@ -1,0 +1,103 @@
+@mixin skeleton() {
+  background-color: var(--quaternary-fill-background);
+}
+
+@mixin rtl {
+  [lang='fa'] {
+    @content;
+  }
+}
+
+@mixin orientation($value) {
+  @if $value == portrait {
+    @media (max-aspect-ratio: 10 / 7) {
+      @content;
+    }
+  } @else {
+    @media (min-aspect-ratio: 10 / 7.1) {
+      @content;
+    }
+  }
+}
+
+@mixin font-serif(
+  $name,
+  $size: false,
+  $color: false,
+  $fontStyle: false,
+  $lineHeight: false,
+  $weight: false
+) {
+  font-family: $name, sans-serif;
+
+  @if $size {
+    font-size: $size;
+  }
+
+  @if $color {
+    color: $color;
+  }
+
+  @if $fontStyle {
+    font-style: $fontStyle;
+  }
+
+  @if $lineHeight {
+    line-height: $lineHeight;
+  }
+
+  @if $weight {
+    font-weight: $weight;
+  }
+}
+
+@mixin separator($placement: bottom) {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--separator-color);
+  transform-origin: bottom left;
+
+  @if $placement == top {
+    top: 0;
+    transform-origin: top left;
+  }
+
+  @if $placement == bottom {
+    bottom: 0;
+    transform-origin: bottom left;
+  }
+
+  @media (min-resolution: 2dppx) {
+    transform: scaleY(0.5);
+  }
+
+  @media (min-resolution: 3dppx) {
+    transform: scaleY(0.33);
+  }
+}
+
+@mixin hide-scroll-bar {
+  // hide scroll bar
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@mixin button-reset {
+  font-family: inherit;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+}

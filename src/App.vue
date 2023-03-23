@@ -1,84 +1,10 @@
 <template>
-  <div id="main">
-    <h3>Sweta Anti Bot</h3>
-    <b>Привет, {{TWA.initDataUnsafe?.user.username}}</b><br/>
-    <b>isExpanded</b>: {{ TWA.isExpanded }}
-    <button @click="TWA.expand()">Expand</button>
-    <button @click="TWA.close()">Close</button><br>
-
-    <b>isClosingConfirmationEnabled</b>: {{ TWA.isClosingConfirmationEnabled }}
-    <button @click="toggleClosingDialog()">Enable/Disable Confirmation Dialog</button><br>
-
-    <b>viewportHeight</b>: {{ TWA.viewportHeight }} <br>
-    <b>viewportStableHeight</b>: {{ TWA.viewportStableHeight }} <br>
-
-
-    <h3>Theme colors</h3>
-    <b>colorScheme</b>: {{ TWA.colorScheme }} <br>
-    <b>themeParams</b>:<br>
-    <div v-for="(rgb_color, key) in TWA.themeParams">
-     <label for="head"><b>{{ key }}</b>: {{ rgb_color }}
-       <input type="color" :value="rgb_color" disabled>
-     </label> <br>
-    </div>
-
-    <h3>Web App colors</h3>
-     <label for="header"><b>headerColor</b>: {{ TWA.headerColor }}
-       <input type="color" name="header" :value="TWA.headerColor" disabled><br>
-       <select @input="changeHeaderColor">
-         <option disabled value="">Please select one</option>
-         <option>bg_color</option>
-         <option>secondary_bg_color</option>
-       </select>
-     </label> <br>
-
-     <label for="background"> <b>backgroundColor</b>: {{ TWA.backgroundColor }}
-       <input type="color" name="background" :value="TWA.backgroundColor" disabled><br>
-       <select @input="changeBackgroundColor">
-         <option disabled value="">Please select one</option>
-         <option>bg_color</option>
-         <option>secondary_bg_color</option>
-       </select>
-     </label> <br>
-
-    <h3>Data received</h3>
-    <b>initData</b>: {{ TWA.initData }} <br>
-    <b>initDataUnsafe</b>: <pre>{{ TWA.initDataUnsafe }}</pre><br>
-    <b>platform</b>: <pre>{{ TWA.platform }}</pre><br>
- 
-
-    <h3>Bot API version available</h3>
-    <b>version</b>: {{ TWA.version }} <br>
-    <b>isVersionAtLeast('6.4')</b>: {{ TWA.isVersionAtLeast('6.4') }} <br>
-
-    <h3>Haptic Feedback</h3>
-    <select v-model="style_selected">
-      <option disabled value="">Please select one</option>
-      <option>light</option>
-      <option>medium</option>
-      <option>heavy</option>
-      <option>rigid</option>
-      <option>soft</option>
-    </select>
-    <button @click="hapticImpact()">Haptic Feedback ({{ style_selected }})</button><br>
-
-    <h3>Functions and buttons</h3>
-    <button @click="TWA.openLink('https://github.com/MBoretto/telegram-bot-vue-wep-app')">Open link in an external browser</button><br>
-    <button @click="toggleBackButton()">Show/hide Back Button</button><br>
-    <button @click="toggleMainButton()">Show/hide Main Button</button>
-    <button @click="toggleEnableMainButton()">Enable/Disable Main Button</button>
-    <button @click="toggleProgressMainButton()">Show/Hide Main Button progress</button><br>
-
-    <h3>QR scanner</h3>
-    <button @click="showQRScanner()">Scan QR code</button><br>
-    <h3>Clipboard</h3>
-    <button @click="TWA.readTextFromClipboard()">Press to read the clipboard</button> <br> {{ clipboard }}<br>
-    <h3>Popups</h3>
-    <button @click="TWA.showAlert('Showing an Alert!!')">Show Alert</button><br>
-    <button @click="TWA.showConfirm('Showing confirm message')">Show Confirm</button><br>
-    <button @click="showPopup()">Show Popup message</button><br>
-    <button @click="showPopup2()">Show Popup message2</button><br>
-    <br>
+  <div class="main">
+    <Header></Header>
+    <ActionButtons></ActionButtons>
+    <InfoBlock></InfoBlock>
+    <hr class="separator separator__material">
+    <RequestsHistory @showPopup="showPopup($event)"></RequestsHistory>
   </div>
 </template>
 
@@ -101,7 +27,20 @@
 //showPopup(params[, callback]) NEW
 //showAlert(message[, callback]) NEW
 //showConfirm(message[, callback]) NEW
+
+import Header from './containers/Header/Header.vue';
+import ActionButtons from "./components/ActionButtons/ActionButtons.vue";
+import RequestsHistory from "./components/RequestsHistory/RequestsHistory.vue";
+import InfoBlock from "./components/InfoBlock/InfoBlock.vue";
+
 export default {
+  components: {
+    InfoBlock,
+    RequestsHistory,
+    ActionButtons,
+    Header
+  },
+
   data() {
     return {
       style_selected: 'medium',
@@ -227,14 +166,13 @@ export default {
     hapticImpact() {
       this.TWA.HapticFeedback.impactOccurred(this.style_selected);
     },
-    showPopup() {
+    showPopup(params) {
       const par = {
-                    title: "Popup title",
-                    message: "Popup with default, ok and close buttons",
+                    title: params.command,
+                    message:  params.message,
                     buttons: [
-                      {id: "default", type: "default", text: "default"},
-                      {id: "ok", type: "ok", text: "ok"},
-                      {id: "close", type: "close", text: "close"}
+                      {id: "ok", type: "ok", text: "Да"},
+                      {id: "close", type: "close", text: "Закрыть"}
                     ]
                   };
 
@@ -256,32 +194,7 @@ export default {
 }
 </script>
 
-<style scoped>
-/*
-bg_color            .
-secondary_bg_color  var(--tg-theme-secondary-bg-color)
-link_color          var(--tg-theme-link-color).
-*/
-#main {
-  background-color: var(--tg-theme-bg-color, white);
-  color: var(--tg-theme-text-color, black);
-  word-wrap: break-word;
-}
-b {
-  color: var(--tg-theme-hint-color, black);
-}
-h3 {
-  color: var(--tg-theme-text-color, black);
-}
-button {
-  background-color: var(--tg-theme-button-color, #008CBA);
-  border: 5px;
-  color: var(--tg-theme-button-text-color, black);
-  padding: 15px;
-  margin: 5px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;
-}
+<style lang="scss" scoped>
+@import './index.module';
+
 </style>

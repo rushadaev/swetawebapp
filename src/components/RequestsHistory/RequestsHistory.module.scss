@@ -1,0 +1,124 @@
+.requests_history {
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
+.requests_history_item {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 15px 0 14.5px;
+  cursor: pointer;
+  &__apple {
+    @include font-serif('-apple-system', 13px, false, normal, 14px, 400);
+
+    background: var(--tg-theme-bg-color);
+    border-radius: 10px;
+
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
+  }
+
+  &__material {
+    @include font-serif('Roboto', 13px, false, normal, 14px, 400);
+
+    &::after {
+      @include separator;
+    }
+  }
+}
+
+.title {
+  white-space: pre-line;
+
+  &__apple {
+    @include font-serif('-apple-system', 16px, false, normal, 20px, 500);
+
+    margin-bottom: 3px;
+  }
+
+  &__material {
+    @include font-serif('Roboto', 16px, false, normal, 20px, 500);
+
+    margin-bottom: 2px;
+  }
+}
+
+.text,
+.statusText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &__apple {
+    @include font-serif(
+                    '-apple-system',
+                    14px,
+                    var(--tg-theme-hint-color),
+                    normal,
+                    18px,
+                    400
+    );
+  }
+
+  &__material {
+    @include font-serif(
+                    'Roboto',
+                    14px,
+                    var(--tg-theme-hint-color),
+                    normal,
+                    18px,
+                    400
+    );
+  }
+}
+
+.statusText {
+  text-transform: uppercase;
+}
+
+.errorStatus {
+  color: var(--text-destrutive-color);
+}
+
+.completedStatus {
+  color: var(--tg-theme-hint-color);
+}
+
+.defaultStatus {
+  color: var(--tg-theme-link-color);
+}
+
+.emptyOrderHistory {
+  height: 160px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__apple {
+    @include font-serif(
+                    '-apple-system',
+                    17px,
+                    var(--tg-theme-hint-color),
+                    normal,
+                    22px,
+                    400
+    );
+  }
+
+  &__material {
+    @include font-serif(
+                    '-Roboto',
+                    16px,
+                    var(--tg-theme-hint-color),
+                    normal,
+                    22px,
+                    400
+    );
+  }
+}
