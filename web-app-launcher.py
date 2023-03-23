@@ -24,7 +24,7 @@ if __version_info__ < (20, 0, 0, "alpha", 1):
         f"{TG_VER} version of this example, "
         f"visit https://docs.python-telegram-bot.org/en/v{TG_VER}/examples.html"
     )
-from telegram import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove, Update, WebAppInfo
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove, Update, WebAppInfo
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
 
 # Enable logging
@@ -39,9 +39,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send a message with a button that opens a the web app."""
     await update.message.reply_text(
         "Please press the button below to choose a color via the WebApp.",
-        reply_markup=ReplyKeyboardMarkup.from_button(
-            KeyboardButton(
-                text="Open the color picker!",
+        reply_markup=InlineKeyboardMarkup.from_button(
+            InlineKeyboardButton(
+                text="Нейросеть",
                 web_app=WebAppInfo(url=URL),
             )
         ),
