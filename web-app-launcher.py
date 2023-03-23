@@ -1,74 +1,77 @@
-#!/usr/bin/env python3
-# pylint: disable=unused-argument, wrong-import-position
+#!/usr/bin/env python
+# pylint: disable=unused-argument,wrong-import-position
 # This program is dedicated to the public domain under the CC0 license.
 
 """
-
-Installation:
-
-    pip install python-telegram-bot --upgrade
-
-
-Basic example for a bot that uses inline keyboards. For an in-depth explanation, check out
- https://github.com/python-telegram-bot/python-telegram-bot/wiki/InlineKeyboard-Example.
+Simple example of a Telegram WebApp which displays a color picker.
+The static website for this website is hosted by the PTB team for your convenience.
+Currently only showcases starting the WebApp via a KeyboardButton, as all other methods would
+require a bot token.
 """
-
+import json
 import logging
 
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update, WebAppInfo
-from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, CallbackContext
+from telegram import __version__ as TG_VER
 
-TOKEN = 'yourbottoken'
-URL = 'https://mboretto.github.io/telegram-bot-vue-wep-app/'
+try:
+    from telegram import __version_info__
+except ImportError:
+    __version_info__ = (0, 0, 0, 0, 0)  # type: ignore[assignment]
 
+if __version_info__ < (20, 0, 0, "alpha", 1):
+    raise RuntimeError(
+        f"This example is not compatible with your current PTB version {TG_VER}. To view the "
+        f"{TG_VER} version of this example, "
+        f"visit https://docs.python-telegram-bot.org/en/v{TG_VER}/examples.html"
+    )
+from telegram import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove, Update, WebAppInfo
+from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
+
+# Enable logging
 logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
 logger = logging.getLogger(__name__)
+URL = 'https://rushadaev.github.io/swetawebapp/'
+
+# Define a `/start` command handler.
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Send a message with a button that opens a the web app."""
+    await update.message.reply_text(
+        "Please press the button below to choose a color via the WebApp.",
+        reply_markup=ReplyKeyboardMarkup.from_button(
+            KeyboardButton(
+                text="Open the color picker!",
+                web_app=WebAppInfo(url=URL),
+            )
+        ),
+    )
 
 
-def start(update: Update, context: CallbackContext) -> None:
-    """Sends a message with three inline buttons attached."""
-    keyboard = [
-        [InlineKeyboardButton("Launch Web App", web_app=WebAppInfo(url=URL))],
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    update.message.reply_text('Press to launch the Web App', reply_markup=reply_markup)
-
-
-def button(update: Update, context: CallbackContext) -> None:
-    """Parses the CallbackQuery and updates the message text."""
-    query = update.callback_query
-
-    # CallbackQueries need to be answered, even if no notification to the user is needed
-    # Some clients may have trouble otherwise. See https://core.telegram.org/bots/api#callbackquery
-    query.answer()
-
-    query.edit_message_text(text=f"Selected option: {query.data}")
-
-
-def help_command(update: Update, context: CallbackContext) -> None:
-    """Displays info on how to use the bot."""
-    update.message.reply_text("Use /start to test this bot.")
+# Handle incoming WebAppData
+async def web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Print the received data and remove the button."""
+    # Here we use `json.loads`, since the WebApp sends the data JSON serialized string
+    # (see webappbot.html)
+    data = json.loads(update.effective_message.web_app_data.data)
+    await update.message.reply_html(
+        text=f"You selected the color with the HEX value <code>{data['hex']}</code>. The "
+        f"corresponding RGB value is <code>{tuple(data['rgb'].values())}</code>.",
+        reply_markup=ReplyKeyboardRemove(),
+    )
 
 
 def main() -> None:
-    """Run the bot."""
-    # Create the Updater and pass it your bot's token.
-    updater = Updater(TOKEN)
+    """Start the bot."""
+    # Create the Application and pass it your bot's token.
+    application = Application.builder().token("6019456796:AAFHO-HS4Q4EpHJlE_YmFTLaPsZO_nTxZ9w").build()
 
-    updater.dispatcher.add_handler(CommandHandler('start', start))
-    updater.dispatcher.add_handler(CallbackQueryHandler(button))
-    updater.dispatcher.add_handler(CommandHandler('help', help_command))
+    application.add_handler(CommandHandler("start", start))
+    application.add_handler(MessageHandler(filters.StatusUpdate.WEB_APP_DATA, web_app_data))
 
-    # Start the Bot
-    updater.start_polling()
-
-    # Run the bot until the user presses Ctrl-C or the process receives SIGINT,
-    # SIGTERM or SIGABRT
-    updater.idle()
+    # Run the bot until the user presses Ctrl-C
+    application.run_polling()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
-

@@ -1,6 +1,6 @@
 <template>
   <div id="main">
-    <h3>Window Control</h3>
+    <h3>Sweta Anti Bot</h3>
     <b>isExpanded</b>: {{ TWA.isExpanded }}
     <button @click="TWA.expand()">Expand</button>
     <button @click="TWA.close()">Close</button><br>
