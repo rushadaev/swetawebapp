@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <h3>Sweta Anti Bot</h3>
-    <b>Привет, {{TWA.initDataUnsafe.username}}<b>
+    <b>Привет, {{TWA.initDataUnsafe.username}}</b>
     <b>isExpanded</b>: {{ TWA.isExpanded }}
     <button @click="TWA.expand()">Expand</button>
     <button @click="TWA.close()">Close</button><br>
