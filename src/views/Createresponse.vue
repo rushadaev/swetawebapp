@@ -31,21 +31,13 @@ export default {
     };
   },
   created() {
-    this.toggleBackButton();
+    this.TWA.BackButton.show();
   },
   mounted() {
     // What is the best? mounted or created??
     this.TWA.ready();
   },
   methods: {
-
-    toggleBackButton() {
-      if (this.TWA.BackButton.isVisible) {
-        this.TWA.BackButton.hide();
-      } else {
-        this.TWA.BackButton.show();
-      }
-    },
   }
 }
 </script>

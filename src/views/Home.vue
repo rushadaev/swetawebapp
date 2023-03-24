@@ -57,7 +57,6 @@ export default {
     // triggered too often
     //this.TWA.onEvent('viewportChanged', this.viewportChanged);
     this.TWA.onEvent('mainButtonClicked', this.mainButtonClicked);
-    this.TWA.onEvent('backButtonClicked', this.backButtonClicked);
     // I couldn't trigger this yet
     this.TWA.onEvent('settingsButtonClicked', this.settingsButtonClicked);
     this.TWA.onEvent('invoiceClosed', this.invoiceClosed);
@@ -66,6 +65,7 @@ export default {
     //this.TWA.onEvent('popupClosed', this.popupClosed);
     this.TWA.onEvent('qrTextReceived', this.processQRCode);
     this.TWA.onEvent('clipboardTextReceived', this.processClipboard);
+    this.TWA.BackButton.hide();
 
   },
   mounted() {
