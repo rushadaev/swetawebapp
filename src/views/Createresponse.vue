@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     backButtonClicked() {
-      this.router.go(-1)
+      history.back()
     },
   }
 }
