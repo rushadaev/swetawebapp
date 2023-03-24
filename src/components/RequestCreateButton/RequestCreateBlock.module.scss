@@ -1,0 +1,58 @@
+.container{
+  min-height: unset;
+  justify-content: start;
+  align-items: start;
+}
+.root {
+  display: flex;
+
+  &__apple {
+    padding-inline-start: 16px;
+    min-height: 44px;
+  }
+
+  &__material {
+    min-height: 50px;
+    padding-inline-start: 14px;
+  }
+}
+
+.icon {
+  /* ! */
+
+  &__apple {
+    margin-inline-end: 12px;
+  }
+
+  &__material {
+    margin-inline-end: 22px;
+    margin-inline-start: 1px;
+  }
+}
+
+.InfoBlockItem {
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  cursor: pointer;
+  color: var(--tg-theme-link-color);
+
+  &__apple {
+    padding: 10px 0;
+    padding-inline-end: 16px;
+  }
+
+  &__material {
+    padding: 15px 0 14.5px;
+    padding-inline-end: 16px;
+  }
+}
+
+.content {
+  flex-grow: 1;
+  min-width: 0;
+  gap: 2px;
+  flex-shrink: 0;
+}

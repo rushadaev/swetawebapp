@@ -1,6 +1,6 @@
 <template>
   <section class="container container__transparent">
-    <div class="logotype">
+    <div @click="$router.push('/')" class="logotype">
       <img src="/images/sweta.jpg" alt="Sweta Antipova">
     </div>
     <h1 class="pageTitle pageTitle__material" data-testid="balance-title">Нейросеть</h1>
