@@ -32,12 +32,16 @@ export default {
   },
   created() {
     this.TWA.BackButton.show();
+    this.TWA.onEvent('backButtonClicked', this.backButtonClicked);
   },
   mounted() {
     // What is the best? mounted or created??
     this.TWA.ready();
   },
   methods: {
+    backButtonClicked() {
+      this.router.go(-1)
+    },
   }
 }
 </script>
