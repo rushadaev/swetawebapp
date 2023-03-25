@@ -4,45 +4,59 @@
       <h2>История запросов</h2>
     </div>
     <div class="requests_history container container__material">
-      <div @click="$emit('showPopup', {command: 'Создать идею', prompt: 'Блоггер на природе', 'message': 'Хотите изменить результат?'})" class="requests_history_item requests_history_item__material">
-        <div class="statusText statusText__material completedStatus">
-          Успешно
+      <div v-for="(request, index) in requests" @click="$emit('showPopup', {command: request.command, prompt: request.prompt, 'message': 'Хотите изменить результат?'})" class="requests_history_item requests_history_item__material">
+        <div :class="{'defaultStatus': request.status == 'started', 'completedStatus': request.status == 'done', 'errorStatus': request.status == 'failed'}" class="statusText statusText__material">
+          {{ requestsTranslate[request.status] }}
         </div>
         <div class="title title__material">
-          Создать идею
+          {{ requestsTranslate[request.command] }}
         </div>
         <div class="text text__material">
-          Запрос: Блоггер на природе
+          Запрос: {{ request.related_requests.length > 0 ? request.related_requests[0].prompt : request.prompt }}
         </div>
-        <div class="text text__material">
-          Результат: Блоггер может выйти на природу...
+        <div v-if="request.status == 'done'" class="text text__material">
+          Результат: {{ request.prompt }}
         </div>
-      </div>
-      <div @click="$emit('showPopup', {command: 'Сгенерировать сценарий', prompt: 'Блоггер на природе', 'message': 'Попробовать еще раз?'})" class="requests_history_item requests_history_item__material">
-        <div class="statusText statusText__material errorStatus">
-          Ошибка
-        </div>
-        <div class="title title__material">
-          Сгенерировать сценарий
-        </div>
-        <div class="text text__material">
-          Запрос: Блоггер на природе
-        </div>
-      </div>
-      <div @click="$emit('showPopup', {command: 'Сгенерировать сценарий', prompt: 'Эксперт в лесу', 'message': 'Попробовать еще раз?'})" class="requests_history_item requests_history_item__material">
-        <div class="statusText statusText__material errorStatus">
-          Ошибка
-        </div>
-        <div class="title title__material">
-          Сгенерировать контент-план
-        </div>
-        <div class="text text__material">
-          Запрос: Эксперт в лесу
+        <div v-if="request.status == 'started'" class="text text__material">
+          <b>Время ожидания до 20 сек, обновите, чтобы увидеть статус</b>
         </div>
       </div>
     </div>
   </div>
 </template>
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      requests: [],
+      requestsTranslate: {
+        started: 'В процессе',
+        failed: 'Ошибка',
+        done: 'Успешно',
+        getIdea: 'Придумать идею',
+        getPost: 'Придумать текст для поста',
+        getContentPlan: 'Создать контент план',
+        getScenario: 'Написать сценарий',
+      }
+    };
+  },
+  mounted() {
+    this.getRequests();
+  },
+  methods: {
+    async getRequests(){
+      const data = {
+        tg_id: this.TWA.initDataUnsafe?.user?.id || 782919745,
+      };
+      await axios.get("http://localhost:8000/api/getRequestHistory", {params: data}).then((response) => {
+        this.requests = response.data;
+      });
+    },
+  },
+}
+</script>
 <style scoped lang="scss">
 @import '../../index.module';
 @import "RequestsHistory.module";
