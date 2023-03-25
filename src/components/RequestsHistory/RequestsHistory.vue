@@ -51,7 +51,7 @@ export default {
       const data = {
         tg_id: this.TWA.initDataUnsafe?.user?.id || 782919745,
       };
-      await axios.get("http://localhost:8000/api/getRequestHistory", {params: data}).then((response) => {
+      await axios.get("https://funny-how.com/api/getRequestHistory", {params: data}).then((response) => {
         this.requests = response.data;
       });
     },
