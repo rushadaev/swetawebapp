@@ -66,6 +66,7 @@ export default {
     this.TWA.onEvent('qrTextReceived', this.processQRCode);
     this.TWA.onEvent('clipboardTextReceived', this.processClipboard);
     this.TWA.BackButton.hide();
+    this.TWA.MainButton.hide()
 
   },
   mounted() {
