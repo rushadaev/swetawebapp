@@ -46,6 +46,7 @@ import InfoBlock from "../components/InfoBlock/InfoBlock.vue";
 import RequestCreateBlock from "../components/RequestCreateButton/RequestCreateBlock.vue";
 import {ref} from 'vue';
 import {useFloating} from '@floating-ui/vue';
+import axios from "axios";
 
 export default {
   components: {
@@ -111,7 +112,7 @@ export default {
     backButtonClicked() {
       history.back()
     },
-    async mainButtonClicked() {
+    mainButtonClicked() {
       let command = this.commands.find(com => com.value == this.command);
       // POST request using axios with set headers
       const data = {
@@ -121,7 +122,7 @@ export default {
         prompt_template: command.prompt_template,
       };
 
-      await axios.post("https://funny-how.com/api/getGptResponse", data);
+      axios.post("https://funny-how.com/api/getGptResponse", data);
 
       const par = {
         title: 'Запрос отправлен',
