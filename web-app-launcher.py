@@ -33,18 +33,26 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 URL = 'https://rushadaev.github.io/swetawebapp/'
+URL2 = 'https://rushadaev.github.io/swetawebapp/createresponse'
 
 # Define a `/start` command handler.
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send a message with a button that opens a the web app."""
+    keyboard = [
+        [
+           InlineKeyboardButton(
+               text="Нейросеть",
+               web_app=WebAppInfo(url=URL),
+           ),
+           InlineKeyboardButton(
+              text="Создать запрос",
+              web_app=WebAppInfo(url=URL2),
+          ),
+        ]
+    ]
     await update.message.reply_text(
-        "Please press the button below to choose a color via the WebApp.",
-        reply_markup=InlineKeyboardMarkup.from_button(
-            InlineKeyboardButton(
-                text="Нейросеть",
-                web_app=WebAppInfo(url=URL),
-            )
-        ),
+        "Пользуйся нейросетью удобнее",
+        reply_markup = InlineKeyboardMarkup(keyboard)
     )
 
 
