@@ -85,8 +85,7 @@ export default {
   },
   created() {
     this.TWA.BackButton.show();
-    this.TWA.MainButton.show();
-    this.TWA.MainButton.disable();
+    this.TWA.MainButton.show().disable();
     this.TWA.onEvent('backButtonClicked', this.backButtonClicked);
     this.TWA.onEvent('mainButtonClicked', this.mainButtonClicked);
     this.TWA.onEvent('popupClosed', this.popupClosed);

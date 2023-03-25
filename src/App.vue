@@ -13,7 +13,7 @@ export default {
     };
   },
   created() {
-    this.TWA.onEvent('mainButtonClicked', this.mainButtonClicked);
+    //this.TWA.onEvent('mainButtonClicked', this.mainButtonClicked);
     this.TWA.onEvent('backButtonClicked', this.backButtonClicked);
   },
   mounted() {
