@@ -93,7 +93,6 @@ export default {
     this.TWA.MainButton.show().disable();
     this.TWA.onEvent('backButtonClicked', this.backButtonClicked);
     this.TWA.onEvent('mainButtonClicked', this.mainButtonClicked);
-    this.TWA.onEvent('popupClosed', this.popupClosed);
   },
   watch: {
     prompt(oldPrompt, newPrompt){
@@ -113,6 +112,18 @@ export default {
       history.back()
     },
     mainButtonClicked() {
+      if(this.prompt.length == 0 ){
+        const par = {
+          title: 'Введите запрос',
+          message:  'Чтобы продолжить, нужно ввести запрос',
+          buttons: [
+            {id: "ok", type: "ok", text: "Хорошо"},
+          ]
+        };
+
+        this.TWA.showPopup(par);
+        return;
+      }
       let command = this.commands.find(com => com.value == this.command);
       // POST request using axios with set headers
       const data = {
@@ -131,7 +142,7 @@ export default {
           {id: "ok", type: "ok", text: "Хорошо"},
         ]
       };
-
+      this.TWA.onEvent('popupClosed', this.popupClosed);
       this.TWA.showPopup(par);
     },
     popupClosed(){

@@ -15,8 +15,8 @@
         <div class="text text__material">
           Запрос: {{ request.related_requests.length > 0 ? request.related_requests[0].prompt : request.prompt }}
         </div>
-        <div v-if="request.status == 'done2'" class="text text__material">
-          Результат: {{ request.prompt }}
+        <div v-if="request.status == 'done'" class="text text__material">
+          Результат: {{ request.related_response.length > 0 ? request.related_response[0].response.slice(0, 200)+'...' : request.prompt }}
         </div>
         <div v-if="request.status == 'started'" class="text text__material">
           <b>Время ожидания до 20 сек, обновите, чтобы увидеть статус</b>
