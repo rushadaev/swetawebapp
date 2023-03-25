@@ -65,19 +65,23 @@ export default {
       commands: [
         {
           label: 'Придумать идею',
-          value: 'getidea'
+          value: 'getidea',
+          prompt_template: 'Generate 10 ideas for instagram reels about '
         },
         {
           label: 'Написать сценарий',
-          value: 'getscenario'
+          value: 'getscenario',
+          prompt_template: 'Generate script with  for short video for Instagram about in style of script of the film '
         },
         {
           label: 'Придумать текст для поста',
-          value: 'getpost'
+          value: 'getpost',
+          prompt_template: 'Write post for instagram no more than 500 symbols about '
         },
         {
           label: 'Создать контент план',
-          value: 'getcontentplan'
+          value: 'getcontentplan',
+          prompt_template: 'You are an smm specialist.You\'re task is to compose 7 days content plan for stories for an instagram blogger.Blogger\'s blog is about '
         }
       ],
       command: 'getidea'
@@ -108,12 +112,13 @@ export default {
       history.back()
     },
     async mainButtonClicked() {
+      let command = this.commands.find(com => com.value == this.command);
       // POST request using axios with set headers
       const data = {
-        command: 'getidea',
-        tg_id: TWA.initDataUnsafe?.user?.id,
+        command: command.value,
+        tg_id: this.TWA.initDataUnsafe?.user?.id,
         prompt_user: this.prompt,
-        prompt_template: 'Generate 10 ideas for instagram reels about',
+        prompt_template: command.prompt_template,
       };
 
       await axios.post("https://funny-how.com/api/getGptResponse", data);
