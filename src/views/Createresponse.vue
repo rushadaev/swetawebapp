@@ -107,7 +107,17 @@ export default {
     backButtonClicked() {
       history.back()
     },
-    mainButtonClicked() {
+    async mainButtonClicked() {
+      // POST request using axios with set headers
+      const data = {
+        command: 'getidea',
+        tg_id: TWA.initDataUnsafe?.user?.id,
+        prompt_user: this.prompt,
+        prompt_template: 'Generate 10 ideas for instagram reels about',
+      };
+
+      await axios.post("https://funny-how.com/api/getGptResponse", data);
+
       const par = {
         title: 'Запрос отправлен',
         message:  'В течении 20 секунд вам прийдет ответ',
@@ -119,7 +129,7 @@ export default {
       this.TWA.showPopup(par);
     },
     popupClosed(){
-      this.router.push('/');
+      history.back()
     }
   }
 }
