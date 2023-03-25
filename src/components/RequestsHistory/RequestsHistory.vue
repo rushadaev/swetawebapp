@@ -38,7 +38,7 @@ export default {
         done: 'Успешно',
         getidea: 'Придумать идею',
         getpost: 'Придумать текст для поста',
-        getcontentPlan: 'Создать контент план',
+        getcontentplan: 'Создать контент план',
         getscenario: 'Написать сценарий',
       }
     };
