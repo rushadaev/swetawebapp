@@ -146,7 +146,7 @@ export default {
       this.TWA.showPopup(par);
     },
     popupClosed(){
-      this.router.push('/')
+      history.back();
     }
   }
 }
