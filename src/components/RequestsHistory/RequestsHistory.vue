@@ -5,7 +5,7 @@
     </div>
     <div class="requests_history container container__material">
       <div v-if="requests.length == 0" class="text text__material">Создайте запрос, чтобы видеть историю</div>
-      <div v-for="(request, index) in requests.sort((a, b) => (a.id > b.id ? -1 : 1))" @click="$emit('showPopup', {command: requestsTranslate[request.command] || request.command, prompt: request.prompt, 'message': 'Хотите изменить результат?'})" class="requests_history_item requests_history_item__material">
+      <div v-for="(request, index) in requests.sort((a, b) => (a.id > b.id ? -1 : 1))" @click="$emit('showPopup', {command: requestsTranslate[request.command.toLowerCase()] || request.command, prompt: request.prompt, 'message': 'Хотите изменить результат?'})" class="requests_history_item requests_history_item__material">
         <div :class="{'defaultStatus': request.status == 'started', 'completedStatus': request.status == 'done', 'errorStatus': request.status == 'failed'}" class="statusText statusText__material">
           {{ requestsTranslate[request.status] }}
         </div>
