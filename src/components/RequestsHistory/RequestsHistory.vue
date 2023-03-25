@@ -10,7 +10,7 @@
           {{ requestsTranslate[request.status] }}
         </div>
         <div class="title title__material">
-          {{ requestsTranslate[request.command] }}
+          {{ requestsTranslate[request.command.toLowerCase()] }}
         </div>
         <div class="text text__material">
           Запрос: {{ request.related_requests.length > 0 ? request.related_requests[0].prompt : request.prompt }}
@@ -36,10 +36,10 @@ export default {
         started: 'В процессе',
         failed: 'Ошибка',
         done: 'Успешно',
-        getIdea: 'Придумать идею',
-        getPost: 'Придумать текст для поста',
-        getContentPlan: 'Создать контент план',
-        getScenario: 'Написать сценарий',
+        getidea: 'Придумать идею',
+        getpost: 'Придумать текст для поста',
+        getcontentPlan: 'Создать контент план',
+        getscenario: 'Написать сценарий',
       }
     };
   },
