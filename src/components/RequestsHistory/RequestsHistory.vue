@@ -4,6 +4,7 @@
       <h2>История запросов</h2>
     </div>
     <div class="requests_history container container__material">
+      <div v-if="requests.length == 0" class="text text__material">Создайте запрос, чтобы видеть историю</div>
       <div v-for="(request, index) in requests" @click="$emit('showPopup', {command: request.command, prompt: request.prompt, 'message': 'Хотите изменить результат?'})" class="requests_history_item requests_history_item__material">
         <div :class="{'defaultStatus': request.status == 'started', 'completedStatus': request.status == 'done', 'errorStatus': request.status == 'failed'}" class="statusText statusText__material">
           {{ requestsTranslate[request.status] }}
@@ -14,7 +15,7 @@
         <div class="text text__material">
           Запрос: {{ request.related_requests.length > 0 ? request.related_requests[0].prompt : request.prompt }}
         </div>
-        <div v-if="request.status == 'done'" class="text text__material">
+        <div v-if="request.status == 'done2'" class="text text__material">
           Результат: {{ request.prompt }}
         </div>
         <div v-if="request.status == 'started'" class="text text__material">
