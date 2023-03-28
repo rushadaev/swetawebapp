@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="sectionHeader sectionHeader__material">
-      <h2 class="header">Ответ</h2>
+      <h2 class="header">Ответ в реальном времени</h2>
     </div>
     <div class="cellContainer cellContainer__material separator">
       <div @click="copyToClipboard" class="response">
