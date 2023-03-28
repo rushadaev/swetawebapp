@@ -38,6 +38,7 @@ export default {
     this.TWA.ready();
   },
   methods: {
+
     showPopup(params) {
       const par = {
         title: params.command,

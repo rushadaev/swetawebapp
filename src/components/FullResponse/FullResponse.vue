@@ -31,7 +31,7 @@ export default {
   mounted() {
     const echo = new Echo({
       broadcaster: 'socket.io',
-      host: 'http://localhost:6001',
+      host: 'https://funny-how.com:6001',
       client: io,
     });
 

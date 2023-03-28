@@ -33,19 +33,19 @@ export default {
       const data = {
         tg_id: this.TWA.initDataUnsafe?.user?.id || 782919745,
       };
-      // await axios.get("https://funny-how.com/api/createOrGetProfile", {params: data}).then((response) => {
-      //   this.requests = response.data;
-      // });
-      await axios.get("http://127.0.0.1:8000/api/createOrGetProfile", {params: data}).then((response) => {
-        this.profile = response.data;
+      await axios.get("https://funny-how.com/api/createOrGetProfile", {params: data}).then((response) => {
+        this.requests = response.data;
       });
+      // await axios.get("http://127.0.0.1:8000/api/createOrGetProfile", {params: data}).then((response) => {
+      //   this.profile = response.data;
+      // });
     },
     async setupAutopay(isAutopay){
       const data = {
         tg_id: this.TWA.initDataUnsafe?.user?.id || 782919745,
         isAutopay: isAutopay
       };
-      await axios.post("http://127.0.0.1:8000/api/setupAutopay", data).then((response) => {
+      await axios.post("https://funny-how.com/api/setupAutopay", data).then((response) => {
         this.profile = response.data;
       });
 

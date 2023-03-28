@@ -41,7 +41,7 @@ export default {
     const echo = new Echo({
       broadcaster: 'socket.io',
       //host: 'http://localhost:6001',
-      host: 'http://localhost:6001',
+      host: 'https://funny-how.com:6001',
       client: io,
     });
     let tg_id = this.TWA.initDataUnsafe?.user?.id || 782919745;

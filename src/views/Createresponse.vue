@@ -3,7 +3,7 @@
     <form>
       <div class="titleContainer titleContainer__material">
         <div class="title title__material">Создать запрос</div>
-        <div @click="mainButtonClicked()" class="progress progress__material">1 из 2</div>
+        <div @click="partialResponseTest()" class="progress progress__material">1 из 2</div>
       </div>
       <div @click="isPopover = !isPopover" class="section section__material inner">
         <div class="cellContainer cellContainer__material separator">
@@ -38,6 +38,7 @@
     </form>
     <div class="section section__material inner">
       <FullResponse ref="fullResponse"></FullResponse>
+      <PartialResponse></PartialResponse>
     </div>
   </div>
 </template>
@@ -108,16 +109,16 @@ export default {
     this.TWA.ready();
   },
   methods: {
-    testsend(){
+    partialResponseTest(){
       let command = this.commands.find(com => com.value == this.command);
       const data = {
         command: command.value,
-        tg_id: this.TWA.initDataUnsafe?.user?.id,
+        tg_id: this.TWA.initDataUnsafe?.user?.id || 782919745,
         prompt_user: this.prompt,
         prompt_template: command.prompt_template,
       };
 
-      axios.post("http://localhost:8000/api/getGptResponse", data)
+      axios.post("https://funny-how.com/api/getGptResponseStreamed", data)
     },
     backButtonClicked() {
       history.back()
@@ -149,11 +150,11 @@ export default {
 
       //axios.post("http://localhost:8000/api/getGptResponse", data)
 
-      // axios.post("https://funny-how.com/api/getGptResponse", data)
+      axios.post("https://funny-how.com/api/getGptResponse", data)
 
       const par = {
-        title: 'Запрос отправлен',
-        message:  'Нейросеть уже работает!',
+        title: 'Нейросеть уже работает🪄',
+        message:  'Время ожидания до 20 секунд',
         buttons: [
           {id: "ok", type: "ok", text: "Хорошо"},
         ]
@@ -162,7 +163,7 @@ export default {
       this.TWA.showPopup(par);
     },
     popupClosed(){
-      history.back();
+      //history.back();
     }
   }
 }
