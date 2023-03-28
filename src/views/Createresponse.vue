@@ -3,7 +3,7 @@
     <form>
       <div class="titleContainer titleContainer__material">
         <div class="title title__material">Создать запрос</div>
-        <div class="progress progress__material">1 из 2</div>
+        <div @click="mainButtonClicked()" class="progress progress__material">1 из 2</div>
       </div>
       <div @click="isPopover = !isPopover" class="section section__material inner">
         <div class="cellContainer cellContainer__material separator">
@@ -37,7 +37,7 @@
       <hr class="separator separator__material">
     </form>
     <div class="section section__material inner">
-      <PartialResponse></PartialResponse>
+      <FullResponse ref="fullResponse"></FullResponse>
     </div>
   </div>
 </template>
@@ -51,9 +51,11 @@ import {ref} from 'vue';
 import {useFloating} from '@floating-ui/vue';
 import axios from "axios";
 import PartialResponse from "../components/PartialResponse/PartialResponse.vue";
+import FullResponse from "../components/FullResponse/FullResponse.vue";
 
 export default {
   components: {
+    FullResponse,
     PartialResponse,
     RequestCreateBlock,
     InfoBlock,
@@ -90,7 +92,9 @@ export default {
           prompt_template: 'You are an smm specialist.You\'re task is to compose 7 days content plan for stories for an instagram blogger.Blogger\'s blog is about '
         }
       ],
-      command: 'getidea'
+      command: 'getidea',
+      response: null,
+      loading: false,
     };
   },
   created() {
@@ -99,25 +103,27 @@ export default {
     this.TWA.onEvent('backButtonClicked', this.backButtonClicked);
     this.TWA.onEvent('mainButtonClicked', this.mainButtonClicked);
   },
-  watch: {
-    prompt(oldPrompt, newPrompt){
-      if(newPrompt.length == 0){
-        this.TWA.MainButton.disable();
-      }
-      else this.TWA.MainButton.enable();
-    }
-
-  },
   mounted() {
     // What is the best? mounted or created??
     this.TWA.ready();
   },
   methods: {
+    testsend(){
+      let command = this.commands.find(com => com.value == this.command);
+      const data = {
+        command: command.value,
+        tg_id: this.TWA.initDataUnsafe?.user?.id,
+        prompt_user: this.prompt,
+        prompt_template: command.prompt_template,
+      };
+
+      axios.post("http://localhost:8000/api/getGptResponse", data)
+    },
     backButtonClicked() {
       history.back()
     },
     mainButtonClicked() {
-      if(this.prompt.length == 0 ){
+      if(this.prompt.length === 0 ){
         const par = {
           title: 'Введите запрос',
           message:  'Чтобы продолжить, нужно ввести запрос',
@@ -129,20 +135,25 @@ export default {
         this.TWA.showPopup(par);
         return;
       }
+
+      this.$refs.fullResponse.toggleLoading()
+
       let command = this.commands.find(com => com.value == this.command);
       // POST request using axios with set headers
       const data = {
         command: command.value,
-        tg_id: this.TWA.initDataUnsafe?.user?.id,
+        tg_id: this.TWA.initDataUnsafe?.user?.id || 782919745,
         prompt_user: this.prompt,
         prompt_template: command.prompt_template,
       };
 
-      axios.post("https://funny-how.com/api/getGptResponse", data);
+      //axios.post("http://localhost:8000/api/getGptResponse", data)
+
+      // axios.post("https://funny-how.com/api/getGptResponse", data)
 
       const par = {
         title: 'Запрос отправлен',
-        message:  'В течении 20 секунд вам прийдет ответ',
+        message:  'Нейросеть уже работает!',
         buttons: [
           {id: "ok", type: "ok", text: "Хорошо"},
         ]

@@ -44,6 +44,7 @@ export default {
       host: 'http://localhost:6001',
       client: io,
     });
+    let tg_id = this.TWA.initDataUnsafe?.user?.id || 782919745;
 
     echo.channel("laravel_database_chunk").listen("MessageChunkEvent", (data) => {
       console.log(data)
