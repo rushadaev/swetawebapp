@@ -3,7 +3,7 @@
     <form>
       <div class="titleContainer titleContainer__material">
         <div class="title title__material">Создать запрос</div>
-        <div class="progress progress__material">1 из 2</div>
+        <div class="progress progress__material">1 из 1</div>
       </div>
       <div @click="isPopover = !isPopover" class="section section__material inner">
         <div class="cellContainer cellContainer__material separator">
@@ -151,6 +151,7 @@ export default {
 
       axios.post("https://funny-how.com/api/getGptResponse", data)
       document.activeElement.blur();
+      this.TWA.MainButton.hide();
       const par = {
         title: 'Нейросеть уже работает🪄',
         message:  'Время ожидания до 20 секунд',

@@ -21,7 +21,16 @@ const routes = [
             window.open('https://teletype.in/@sweta_anti/Neuronet', '_blank')
             return false;
         }
-    }
+    },
+    {
+        path: '/subscribe',
+        name: 'subscribe_to_ai',
+        beforeEnter(to, from, next) {
+            const learnUrl = `https://school.sweta-anti.com/bot-subscribe?sid=${to.query.sb_id}&tgid=${to.query.tg_id}`;
+            window.open(learnUrl, '_blank');
+            return false;
+        },
+    },
 ]
 const router = createRouter({
     history: createWebHistory('swetawebapp'),

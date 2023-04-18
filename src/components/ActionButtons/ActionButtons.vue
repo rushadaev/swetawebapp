@@ -9,7 +9,7 @@
       <Button v-if="profile.request_count" :disabled="true">
         Вам доступно {{5 - profile.request_count}} бесплатных запросов
       </Button>
-      <Button :onClick="() => {subscribed = !subscribed}" mode="primary">
+      <Button @click="openSubscribePage" mode="primary">
         Оформить подписку
       </Button>
     </template>
@@ -38,6 +38,16 @@ export default {
   mounted() {
   },
   methods: {
+    openSubscribePage(){
+      const profile = {
+        sb_id: this.profile.sb_id,
+        tg_id: this.profile.tg_id,
+      };
+      this.$router.push({
+        name: 'subscribe_to_ai',
+        query: profile,
+      });
+    },
     async setupAutopay(isAutopay){
       const data = {
         tg_id: this.TWA.initDataUnsafe?.user?.id || 782919745,
