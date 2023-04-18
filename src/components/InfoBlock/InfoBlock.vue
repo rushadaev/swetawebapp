@@ -21,10 +21,17 @@
   </div>
 </template>
 <script>
+import axios from "axios";
+
 export default {
   methods:{
-    supportInit(){
-      this.TWA.sendData("/support");
+    async supportInit(){
+      const data = {
+        tg_id: this.TWA.initDataUnsafe?.user?.id || 782919745,
+      };
+      await axios.get("https://funny-how.com/api/support", {params: data}).then((response) => {
+        this.TWA.close();
+      });
     }
   }
 }

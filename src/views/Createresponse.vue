@@ -3,7 +3,7 @@
     <form>
       <div class="titleContainer titleContainer__material">
         <div class="title title__material">Создать запрос</div>
-        <div @click="partialResponseTest()" class="progress progress__material">1 из 2</div>
+        <div class="progress progress__material">1 из 2</div>
       </div>
       <div @click="isPopover = !isPopover" class="section section__material inner">
         <div class="cellContainer cellContainer__material separator">
@@ -38,7 +38,6 @@
     </form>
     <div class="section section__material inner">
       <FullResponse ref="fullResponse"></FullResponse>
-      <PartialResponse></PartialResponse>
     </div>
   </div>
 </template>
