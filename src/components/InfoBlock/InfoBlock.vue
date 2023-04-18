@@ -24,7 +24,7 @@
 export default {
   methods:{
     supportInit(){
-      TWA.sendData("/support");
+      this.TWA.sendData("/support");
     }
   }
 }
