@@ -36,6 +36,9 @@ export default {
 <style scoped lang="scss">
 @import '../../index.module';
 @import "RequestCreateBlock.module";
+.InfoBlockItem__material .content{
+  flex-shrink: unset;
+}
 .requests_create_header{
   padding: 20px 16px 4px 0px;
   background: var(--tg-theme-bg-color);
