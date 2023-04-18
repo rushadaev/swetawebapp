@@ -32,6 +32,7 @@ export default {
     async getProfile(){
       const data = {
         tg_id: this.TWA.initDataUnsafe?.user?.id || 782919745,
+        sb_id: this.$route.query.sbid || 0
       };
       await axios.get("https://funny-how.com/api/createOrGetProfile", {params: data}).then((response) => {
         this.profile = response.data;
