@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <Header></Header>
-    <ActionButtons></ActionButtons>
-    <RequestCreateBlock></RequestCreateBlock>
+    <ActionButtons :profile="profile"></ActionButtons>
+    <RequestCreateBlock :profile="profile"></RequestCreateBlock>
     <hr class="separator separator__material">
     <InfoBlock></InfoBlock>
     <hr class="separator separator__material">
@@ -28,7 +28,9 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      profile: {},
+    };
   },
   created() {
     this.TWA.BackButton.hide();
@@ -36,9 +38,21 @@ export default {
   },
   mounted() {
     this.TWA.ready();
+    this.getProfile();
   },
   methods: {
-
+    async getProfile(){
+      const data = {
+        tg_id: this.TWA.initDataUnsafe?.user?.id || 782919745,
+        sb_id: this.$route.query.sbid || 0
+      };
+      await axios.get("https://funny-how.com/api/createOrGetProfile", {params: data}).then((response) => {
+        this.profile = response.data;
+      });
+      // await axios.get("http://127.0.0.1:8000/api/createOrGetProfile", {params: data}).then((response) => {
+      //   this.profile = response.data;
+      // });
+    },
     showPopup(params) {
       const par = {
         title: params.command,

@@ -1,6 +1,14 @@
 <template>
-  <div v-if="profile" class="action_buttons_container">
-    <template v-if="!profile.subscribed">
+  <div class="action_buttons_container">
+    <template v-if="!profile.id">
+      <Button :disabled="true">
+        Загрузка профиля...
+      </Button>
+    </template>
+    <template v-else-if="!profile.subscribed">
+      <Button v-if="profile.request_count" :disabled="true">
+        Вам доступно {{5 - profile.request_count}} бесплатных запросов
+      </Button>
       <Button :onClick="() => {subscribed = !subscribed}" mode="primary">
         Оформить подписку
       </Button>
@@ -19,28 +27,17 @@ import Button from "../Button/Button.vue";
 import axios from "axios";
 export default {
   components: {Button},
+  props: {
+    profile: Object,
+  },
   data() {
     return {
       subscribed: true,
-      profile: null,
     };
   },
   mounted() {
-    this.getProfile();
   },
   methods: {
-    async getProfile(){
-      const data = {
-        tg_id: this.TWA.initDataUnsafe?.user?.id || 782919745,
-        sb_id: this.$route.query.sbid || 0
-      };
-      await axios.get("https://funny-how.com/api/createOrGetProfile", {params: data}).then((response) => {
-        this.profile = response.data;
-      });
-      // await axios.get("http://127.0.0.1:8000/api/createOrGetProfile", {params: data}).then((response) => {
-      //   this.profile = response.data;
-      // });
-    },
     async setupAutopay(isAutopay){
       const data = {
         tg_id: this.TWA.initDataUnsafe?.user?.id || 782919745,
