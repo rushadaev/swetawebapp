@@ -40,6 +40,7 @@ export default {
     echo.channel("laravel_database_gpt_response_"+tg_id).listen("GptResponse", (response) => {
       this.data = response.data;
       this.toggleLoading();
+      this.TWA.close();
     });
   },
   methods: {

@@ -150,7 +150,7 @@ export default {
       //axios.post("http://localhost:8000/api/getGptResponse", data)
 
       axios.post("https://funny-how.com/api/getGptResponse", data)
-
+      document.activeElement.blur();
       const par = {
         title: 'Нейросеть уже работает🪄',
         message:  'Время ожидания до 20 секунд',
