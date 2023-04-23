@@ -9,10 +9,8 @@ const routes = [
     {
         path: '/createresponse',
         name: 'Create Response',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/Createresponse.vue')
+        component: () => import(/* webpackChunkName: "about" */ '../views/Createresponse.vue'),
+        props: (route) => ({ prompt: route.query.prompt, command: route.query.command })
     },
     {
         path: '/learn',
@@ -27,6 +25,24 @@ const routes = [
         name: 'subscribe_to_ai',
         beforeEnter(to, from, next) {
             const learnUrl = `https://school.sweta-anti.com/bot-subscribe?sid=${to.query.sb_id}&tgid=${to.query.tg_id}`;
+            window.open(learnUrl, '_blank');
+            return false;
+        },
+    },
+    {
+        path: '/autopay_on',
+        name: 'autopay_on_ai',
+        beforeEnter(to, from, next) {
+            const learnUrl = `https://school.sweta-anti.com/ai_autopayOn_success_to_server`;
+            window.open(learnUrl, '_blank');
+            return false;
+        },
+    },
+    {
+        path: '/autopay_off',
+        name: 'autopay_off_ai',
+        beforeEnter(to, from, next) {
+            const learnUrl = `https://school.sweta-anti.com/ai_autopayOff_success_to_server`;
             window.open(learnUrl, '_blank');
             return false;
         },

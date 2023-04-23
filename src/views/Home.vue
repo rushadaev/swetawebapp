@@ -63,7 +63,15 @@ export default {
         ]
       };
 
-      this.TWA.showPopup(par);
+      this.$router.push({
+        path: '/createresponse',
+        query: {
+          prompt: params.prompt,
+          command: params.command
+        }
+      })
+      //
+      // this.TWA.showPopup(par);
     },
   }
 }

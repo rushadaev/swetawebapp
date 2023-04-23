@@ -17,8 +17,8 @@
       <Button :disabled="true">
         Подписка действительна до {{ profile.subscription_until }}
       </Button>
-      <Button v-if="profile.autopay" :onClick="() => {setupAutopay(false)}" mode="destructive">Выключить автопродление</Button>
-      <Button v-if="!profile.autopay" :onClick="() => {setupAutopay(true)}" mode="primary">Включить автопродление</Button>
+      <Button v-if="profile.autopay" @click="openAutopayOffPage" mode="destructive">Выключить автопродление</Button>
+      <Button v-if="!profile.autopay" @click="openAutopayOnPage" mode="primary">Включить автопродление</Button>
     </template>
   </div>
 </template>
@@ -45,6 +45,26 @@ export default {
       };
       this.$router.push({
         name: 'subscribe_to_ai',
+        query: profile,
+      });
+    },
+    openAutopayOnPage(){
+      const profile = {
+        sb_id: this.profile.sb_id,
+        tg_id: this.profile.tg_id,
+      };
+      this.$router.push({
+        name: 'autopay_off_ai',
+        query: profile,
+      });
+    },
+    openAutopayOffPage(){
+      const profile = {
+        sb_id: this.profile.sb_id,
+        tg_id: this.profile.tg_id,
+      };
+      this.$router.push({
+        name: 'autopay_on_ai',
         query: profile,
       });
     },

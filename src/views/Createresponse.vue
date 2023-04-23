@@ -102,6 +102,14 @@ export default {
     this.TWA.MainButton.show();
     this.TWA.onEvent('backButtonClicked', this.backButtonClicked);
     this.TWA.onEvent('mainButtonClicked', this.mainButtonClicked);
+
+    if (this.$route.query.prompt) {
+      this.prompt = this.$route.query.prompt;
+    }
+    if (this.$route.query.command) {
+      this.command = this.$route.query.command;
+    }
+
   },
   mounted() {
     // What is the best? mounted or created??
