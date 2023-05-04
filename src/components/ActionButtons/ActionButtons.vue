@@ -7,7 +7,7 @@
     </template>
     <template v-else-if="!profile.subscribed">
       <Button v-if="profile.request_count" :disabled="true">
-        Вам доступно {{5 - profile.request_count}} бесплатных запросов
+        Вам доступно {{3 - profile.request_count}} бесплатных запросов
       </Button>
       <Button @click="openSubscribePage" mode="primary">
         Оформить подписку
