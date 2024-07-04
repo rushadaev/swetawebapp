@@ -42,6 +42,9 @@ export default {
   },
   methods: {
     async getProfile(){
+      console.log('TWA', this.TWA)
+      console.log('TWAinitData', this.TWA.initData)
+      console.log('TWAinitDataUnsafe', this.TWA.initDataUnsafe)
       const data = {
         tg_id: this.TWA.initDataUnsafe?.user?.id || 782919745,
         sb_id: this.$route.query.sbid || 0
